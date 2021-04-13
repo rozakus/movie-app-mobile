@@ -10,6 +10,10 @@ const moviesReducers = (state = initalState, action) => {
       ...state,
       movies: action.payload
     }
+    case 'UPDATE_MOVIE_DETAIL': return {
+      ...state,
+      movieDetail: action.payload
+    }
     default: return state
   }
 }

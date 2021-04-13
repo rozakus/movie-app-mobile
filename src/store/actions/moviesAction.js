@@ -18,3 +18,20 @@ export function updateMovies(category = 'now_playing') {
     }
   }
 }
+
+export function updateMovieDetail(query) {
+  return async (dispatch) => {
+    try {
+
+      const { data } = await axios.get(URL + query + API)
+
+      dispatch({
+        type: 'UPDATE_MOVIE_DETAIL',
+        payload: data
+      })
+
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}

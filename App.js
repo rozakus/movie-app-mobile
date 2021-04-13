@@ -9,6 +9,7 @@ import { Provider } from 'react-redux'
 
 // Screens
 import HomeScreen from './src/screens/HomeScreen'
+import DetailScreen from './src/screens/DetailScreen'
 
 // Navigator
 const Stack = createStackNavigator()
@@ -19,6 +20,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Detail" component={DetailScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
