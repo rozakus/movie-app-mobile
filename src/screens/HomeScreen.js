@@ -6,7 +6,7 @@ import { StyleSheet, View, Image, ScrollView, TouchableOpacity } from 'react-nat
 import { Button, Icon, Text } from 'react-native-elements'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { updateMovies, updateMovieDetail } from '../store/actions/moviesAction'
+import { updateMovies, updateMovieDetail, addToFavourites } from '../store/actions/moviesAction'
 
 export default function HomeScreen({ navigation }) {
   // settings
@@ -21,6 +21,7 @@ export default function HomeScreen({ navigation }) {
   const [category, setCategory] = useState('now_playing')
 
   const { movies, favourites } = useSelector((state) => state.moviesReducers)
+  // console.log(favourites)
 
   const handleMoviesCategory = (category) => {
     setCategory(category)
@@ -30,6 +31,11 @@ export default function HomeScreen({ navigation }) {
   const handleDetails = (movie) => {
     dispatch(updateMovieDetail(movie.id))
     return navigation.navigate('Detail')
+  }
+
+  const handleAddFavourites = (movie) => {
+    // console.log(movie)
+    dispatch(addToFavourites(movie))
   }
 
   return (
@@ -43,19 +49,19 @@ export default function HomeScreen({ navigation }) {
 
         <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginVertical: 10, paddingHorizontal: 30 }}>
           <Text h4>
-            Category : 
+            Category :
           </Text>
           <Button
             buttonStyle={{ borderRadius: 10, paddingHorizontal: 20 }}
             onPress={() => handleMoviesCategory('now_playing')}
             title="now playing"
-            type={category === 'now_playing' ? 'solid' : 'clear'}
+            type={category === 'now_playing' ? 'solid' : 'outline'}
           />
           <Button
             buttonStyle={{ borderRadius: 10, paddingHorizontal: 20 }}
             onPress={() => handleMoviesCategory('upcoming')}
             title="upcoming"
-            type={category === 'upcoming' ? 'solid' : 'clear'}
+            type={category === 'upcoming' ? 'solid' : 'outline'}
           />
         </View>
 
@@ -70,17 +76,17 @@ export default function HomeScreen({ navigation }) {
                         key={index}
                         style={{ height: 180, width: 120, borderRadius: 10, marginBottom: 5 }}
                         source={{ uri: BASEURL_IMG + movie.poster_path }}
-                        onPress={() => console.log('detail')}
                       />
                     </TouchableOpacity>
                     <Button
+                      onPress={() => handleAddFavourites(movie)}
                       buttonStyle={{ borderRadius: 10, fontSize: 5 }}
-                      title='Like'
-                      type='solid'
+                      title={favourites.includes(movie) ? 'Liked' : 'Like'}
+                      type={favourites.includes(movie) ? 'solid' : 'outline'}
                       icon={{
-                        name: "arrow-right",
+                        name: "favorite-outline",
                         size: 20,
-                        color: "white"
+                        color: favourites.includes(movie) ? 'white' : "dodgerblue"
                       }}
                     />
                   </View>

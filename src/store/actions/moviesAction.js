@@ -35,3 +35,19 @@ export function updateMovieDetail(query) {
     }
   }
 }
+
+export function addToFavourites(movie) {
+  return async (dispatch) => {
+    try {
+      // console.log(movie)
+
+      dispatch({
+        type: 'ADD_FAVOURITES',
+        payload: movie
+      })
+
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}

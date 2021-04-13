@@ -14,6 +14,14 @@ const moviesReducers = (state = initalState, action) => {
       ...state,
       movieDetail: action.payload
     }
+    case 'ADD_FAVOURITES':
+      // let tempFav = state.favourites
+      // tempFav.concat(action.payload)
+
+      return {
+        ...state,
+        favourites: [...new Set(state.favourites.concat(action.payload))]
+      }
     default: return state
   }
 }
